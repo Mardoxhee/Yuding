@@ -3,8 +3,8 @@ const router = express.Router();
 const {
   signup,
   login,
-  //   forgotPassword,
-  //   resetPassword,
+  forgotPassword,
+  resetPassword,
 } = require("./../controllers/authController");
 
 const {
@@ -17,9 +17,9 @@ const {
 
 router.post("/signup", signup);
 router.post("/login", login);
-// router.post("/forgotPassword", forgotPassword);
+router.post("/forgotPassword", forgotPassword);
 router.route("/").get(getAllAccounts).post(createAccount);
-// router.patch("/resetPassword/:token", resetPassword);
+router.patch("/resetPassword/:token", resetPassword);
 router.route("/:id").get(getAccount).patch(updateAccount).delete(deleteAccount);
 
 module.exports = router;

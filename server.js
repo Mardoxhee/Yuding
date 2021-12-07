@@ -3,6 +3,9 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 const app = require("./app");
 
+// localdatabase
+// const DB = 'mongodb://localhost:27017/projets-test'
+
 // hosted database connexion config
 
 const DB = process.env.DATABASE.replace(
@@ -20,7 +23,7 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
-  
+
 //  Port configuration
 
 const port = process.env.PORT || 3000;

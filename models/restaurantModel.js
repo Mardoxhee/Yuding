@@ -1,0 +1,46 @@
+const mongoose = require("mongoose");
+const validator = require("validator");
+
+const restaurantSchema = new mongoose.Schema({
+  restaurantName: {
+    unique: true,
+    type: String,
+    required: [true, "a restaurant has imperatuvely a name"],
+  },
+  coverPicture: {
+    type: String,
+    required: [true, "must have one cover picture"],
+  },
+  description: {
+    type: String,
+    required: [true, "a brief description of the restaurant "],
+  },
+  openTime: {
+    type: Date,
+    // required: [true, "mention this"],
+  },
+  closeTime: {
+    type: Date,
+    // required: [true, "mention this"],
+  },
+  adress: {
+    type: [
+      {
+        street: { type: String },
+        numer: { type: Number },
+        township: { type: String },
+        quater: { type: String },
+        reference: { type: String },
+      },
+    ],
+  },
+  nbrPlaces: {
+    type: Number,
+    required: [true, "must put this information"],
+  },
+  map: { type: String },
+  pictures: { type: String },
+});
+
+const Restaurant = mongoose.model("Restaurant", restaurantSchema);
+module.exports = Restaurant;
