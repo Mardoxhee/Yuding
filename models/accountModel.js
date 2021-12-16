@@ -57,7 +57,6 @@ const accountSchema = new mongoose.Schema({
     type: String,
     required: [false, "optional"],
   },
-
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
