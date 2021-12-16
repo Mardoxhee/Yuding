@@ -1,9 +1,18 @@
 const Restaurant = require("./../models/RestaurantModel");
+const Account = require("./../models/accountModel");
 const APIfeatures = require("./../utils/apiFeatures");
 
+exports.aliasTopProjets = (req, res, next) => {
+  req.query.limit = "4";
+  req.query.sort = "createdAt";
+  req.query.fields = "title,description,github,hosted";
+  next();
+};
 exports.createRestaurant = async (req, res) => {
   try {
-    const newRestaurant = await Restaurant.create(req.body);
+    const bodies = req.body;
+    bodies.account = req.decoded.id;
+    const newRestaurant = await Restaurant.create(bodies);
     res.status(201).json({
       status: "Restaurant created successfully",
       data: {
@@ -24,13 +33,12 @@ exports.createRestaurant = async (req, res) => {
 
 exports.getAllRestaurants = async (req, res) => {
   try {
-    // const features = new APIfeatures(Restaurant.find(), req.query)
-    //   .filter()
-    //   .sort()
-    //   .limitedFields()
-    //   .paginate();
-
-    const restaurants = await Restaurant.find();
+    const features = new APIfeatures(Restaurant.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const restaurants = await features.query;
 
     // const restaurants = await features.query;
     // Send response
@@ -49,9 +57,11 @@ exports.getAllRestaurants = async (req, res) => {
   }
 };
 
-exports.getOneRestaurant = async (req, res) => {
+exports.getRestaurantByAccount = async (req, res) => {
   try {
-    const restaurant = await Restaurant.findById(req.params.id);
+    const restaurant = await Restaurant.find({
+      account: req.decoded.id,
+    }).populate("account");
     res.status(200).json({
       status: "success",
       data: {
@@ -66,6 +76,42 @@ exports.getOneRestaurant = async (req, res) => {
   }
 };
 
+exports.getOneRestaurant = async (req, res) => {
+  try {
+    const restaurant = await Restaurant.findById(req.params.id).populate(
+      "account",
+      "reservation"
+    );
+    res.status(200).json({
+      status: "success",
+      data: {
+        restaurant,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "failed",
+      message: err.message,
+    });
+  }
+};
+
+// exports.getOneRestaurant = async (req, res) => {
+//   try {
+//     Restaurant.findOne({ _id: req.params.id })
+//       .populate("account", "name email")
+//       .exec(function (err, restaurant) {
+//         // console.log("restaurant title: ", restaurant.restaurantName);
+//         // console.log("restaurant creator", restaurant.account.name);
+//       });
+//     res.send(restaurant);
+//   } catch (err) {
+//     res.status(400).json({
+//       status: "failed",
+//       message: err.message,
+//     });
+//   }
+// };
 exports.updateRestaurant = async (req, res) => {
   try {
     const restaurant = await Restaurant.findByIdAndUpdate(

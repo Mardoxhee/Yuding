@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
 const accountSchema = new mongoose.Schema({
+  restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
   lastName: {
     type: String,
     required: [true, "an account must have a lastName"],
@@ -56,6 +57,7 @@ const accountSchema = new mongoose.Schema({
     type: String,
     required: [false, "optional"],
   },
+
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,

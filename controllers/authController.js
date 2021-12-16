@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const Account = require("./../models/accountModel");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const { promisify } = require("util");
 
 const signToken = (id) => {
@@ -11,15 +12,7 @@ const signToken = (id) => {
 
 exports.signup = async (req, res) => {
   try {
-    const newAccount = await Account.create({
-      lastName: req.body.lastName,
-      firstName: req.body.firstName,
-      phone: req.body.phone,
-      email: req.body.email,
-      password: req.body.password,
-      passwordConfirm: req.body.passwordConfirm,
-      role: req.body.role,
-    });
+    const newAccount = await Account.create(req.body);
 
     const token = signToken(newAccount._id);
     res.status(201).json({
@@ -50,7 +43,7 @@ exports.login = async (req, res, next) => {
       });
     }
 
-    const account = await Account.findOne({ email }).select("+password");
+    const account = await Account.findOne({ email }).select("+password ");
     if (
       !account ||
       !(await account.correctPassword(password, account.password))
@@ -59,12 +52,15 @@ exports.login = async (req, res, next) => {
         .status(401)
         .json({ status: "failed", message: "incorrect mail or password" });
     }
-    console.log(account);
+    //console.log(account);
+
     // 3) if every thing is ok, then send the token to the client and
 
     const token = signToken(account._id);
+
     res.status(200).json({
       status: "connected to the platform",
+      accountId: account._id,
       token,
     });
   } catch (err) {
@@ -75,60 +71,46 @@ exports.login = async (req, res, next) => {
   }
 };
 
-// protection function
+const SECRET_KEY = process.env.JWT_SECRET;
 
 exports.protect = async (req, res, next) => {
-  try {
-    // 1) get token and check existance
-    let token;
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
-      token = req.headers.authorization.split(" ")[1];
-    }
-    if (!token) {
-      return res.status(401).json({
-        status: "failed",
-        message: "you are  not logged, please login",
-      });
-    }
+  let token = req.headers["x-access-token"] || req.headers["authorization"];
+  if (!!token && token.startsWith("Bearer ")) {
+    token = token.slice(7, token.length);
+  }
 
-    // 2) token verification
+  if (token) {
+    jwt.verify(token, SECRET_KEY, (err, decoded) => {
+      if (err) {
+        return res.status(401).json("token_not_valid");
+      } else {
+        req.decoded = decoded;
 
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+        const expiresIn = 24 * 60 * 60;
+        const newToken = jwt.sign(
+          {
+            user: decoded.user,
+          },
+          SECRET_KEY,
+          {
+            expiresIn: expiresIn,
+          }
+        );
 
-    // 3) check if account exists
-
-    const currentAccount = await Account.findById(decoded.id);
-    if (!currentAccount) {
-      return res.status(401).json({
-        staus: "failed",
-        message: "the account belonging that token doesn't exixt",
-      });
-    }
-
-    // 4) check if Account changed password after token issued
-    if (currentAccount.changedPasswordAfter(decoded.iat)) {
-      return res.status(401).json({
-        status: "failed",
-        message: "Account recently chenged password ! please log again",
-      });
-    }
-    req.account = currentAccount;
-    next();
-  } catch (err) {
-    res.status(400).json({
-      status: "failed",
-      message: err.message,
+        res.header("Authorization", "Bearer " + newToken);
+        next();
+      }
     });
+  } else {
+    return res.status(401).json("token_required");
   }
 };
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // roles is an array like ["admin", "moderator", "user"]
-    if (!roles.includes(req.Account.role)) {
+    if (!roles.includes(req.body.account)) {
+      console.log("start:", req.body.account);
       return res.status(403).json({
         status: "failed",
         message: "you do not have permission to do this action",

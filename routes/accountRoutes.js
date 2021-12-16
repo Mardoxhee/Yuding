@@ -9,7 +9,6 @@ const {
 
 const {
   getAllAccounts,
-  createAccount,
   getAccount,
   updateAccount,
   deleteAccount,
@@ -18,7 +17,7 @@ const {
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/forgotPassword", forgotPassword);
-router.route("/").get(getAllAccounts).post(createAccount);
+router.route("/").get(getAllAccounts);
 router.patch("/resetPassword/:token", resetPassword);
 router.route("/:id").get(getAccount).patch(updateAccount).delete(deleteAccount);
 

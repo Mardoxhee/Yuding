@@ -8,16 +8,19 @@ const {
   getOneRestaurant,
   updateRestaurant,
   deleteRestaurant,
-  getTopRestaurants,
+  getRestaurantByAccount,
 } = require("./../controllers/RestaurantController");
 
 // ordinary routes
-
-router.route("/").get(getAllRestaurants).post(createRestaurant);
+router.route("/all").get(getAllRestaurants);
+router
+  .route("/")
+  .get(protect, getRestaurantByAccount)
+  .post(protect, createRestaurant);
 router
   .route("/:id")
-  .get(getOneRestaurant)
-  .patch(updateRestaurant)
+  .get(protect, getOneRestaurant)
+  .patch(protect, updateRestaurant)
   .delete(protect, deleteRestaurant);
 
 module.exports = router;

@@ -2,11 +2,41 @@ const express = require("express");
 const app = express();
 const AccountRouter = require("./Routes/accountRoutes");
 const RestaurantRouter = require("./Routes/restaurantRoutes");
-const AppError = require("./utils/appError");
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+// const AppError = require("./utils/appError");
 app.use(express.json());
 
-// Routes
+// Extended: https://swagger.io/specification/#infoObject
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: "yuding API",
+      description: "soon",
+      contact: {
+        name: "mardochée LUVIKI",
+        email: "MardoxheeLuviki@gmail.com",
+      },
+      servers: "http:127.0.0.1:3000",
+    },
+  },
+  apis: ["app.js"],
+};
 
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+// Routes
+/**
+ * @swagger
+ * /restaurants/all:
+ *  get:
+ *      description : get all restaurants figuring in the yuding platform
+ *      responses :
+ *        '200':
+ *          description : successfull !
+ */
+app.use("/restaurants/all", RestaurantRouter);
 app.use("/api/accounts", AccountRouter);
 app.use("/api/restaurants", RestaurantRouter);
 

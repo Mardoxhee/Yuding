@@ -40,6 +40,8 @@ const restaurantSchema = new mongoose.Schema({
   },
   map: { type: String },
   pictures: { type: String },
+  account: { type: mongoose.Schema.Types.ObjectId, ref: "Account" },
+  reservation: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reservation" }],
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
