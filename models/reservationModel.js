@@ -22,12 +22,12 @@ const reservationSchema = new mongoose.Schema({
     type: Date,
     required: [true, "must have a date"],
   },
+
   nbrePlaces: {
     type: Number,
     required: [true, " precise the number of places that must be reserved"],
   },
-  restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
-  account: { type: mongoose.Schema.Types.ObjectId, ref: "Account" },
+  // restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
 });
 
 const Reservation = mongoose.model("Reservation", reservationSchema);

@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const AccountRouter = require("./Routes/accountRoutes");
 const RestaurantRouter = require("./Routes/restaurantRoutes");
+const ReservationRouter = require("./Routes/reservationRoutes");
+const MealRouter = require("./Routes/MealRoutes");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 // const AppError = require("./utils/appError");
@@ -12,7 +14,8 @@ const swaggerOptions = {
   swaggerDefinition: {
     info: {
       title: "yuding API",
-      description: "soon",
+      description:
+        "la plus grande plateforme d'exploration et de réservation des restaurants à Kinshasa",
       contact: {
         name: "mardochée LUVIKI",
         email: "MardoxheeLuviki@gmail.com",
@@ -39,6 +42,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/restaurants/all", RestaurantRouter);
 app.use("/api/accounts", AccountRouter);
 app.use("/api/restaurants", RestaurantRouter);
+app.use("/api/reservations", ReservationRouter);
+app.use("/api/meals", MealRouter);
 
 // Error test
 // app.all("*", (req, res, next) => {

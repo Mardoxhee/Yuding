@@ -2,16 +2,21 @@ const Restaurant = require("./../models/RestaurantModel");
 const Account = require("./../models/accountModel");
 const APIfeatures = require("./../utils/apiFeatures");
 
-exports.aliasTopProjets = (req, res, next) => {
+exports.aliasTopRestaurants = (req, res, next) => {
   req.query.limit = "4";
   req.query.sort = "createdAt";
-  req.query.fields = "title,description,github,hosted";
+  req.query.fields = "restaurantName,categorie, country";
   next();
 };
 exports.createRestaurant = async (req, res) => {
   try {
     const bodies = req.body;
     bodies.account = req.decoded.id;
+    // bodies.reservation = [
+    //   {
+    //     reservation,
+    //   },
+    // ];
     const newRestaurant = await Restaurant.create(bodies);
     res.status(201).json({
       status: "Restaurant created successfully",
@@ -78,10 +83,10 @@ exports.getRestaurantByAccount = async (req, res) => {
 
 exports.getOneRestaurant = async (req, res) => {
   try {
-    const restaurant = await Restaurant.findById(req.params.id).populate(
+    const restaurant = await Restaurant.findById(req.params.id).populate([
+      "reservation",
       "account",
-      "reservation"
-    );
+    ]);
     res.status(200).json({
       status: "success",
       data: {
@@ -96,22 +101,6 @@ exports.getOneRestaurant = async (req, res) => {
   }
 };
 
-// exports.getOneRestaurant = async (req, res) => {
-//   try {
-//     Restaurant.findOne({ _id: req.params.id })
-//       .populate("account", "name email")
-//       .exec(function (err, restaurant) {
-//         // console.log("restaurant title: ", restaurant.restaurantName);
-//         // console.log("restaurant creator", restaurant.account.name);
-//       });
-//     res.send(restaurant);
-//   } catch (err) {
-//     res.status(400).json({
-//       status: "failed",
-//       message: err.message,
-//     });
-//   }
-// };
 exports.updateRestaurant = async (req, res) => {
   try {
     const restaurant = await Restaurant.findByIdAndUpdate(

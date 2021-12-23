@@ -1,23 +1,25 @@
 const express = require("express");
 const router = express.Router();
-
+const { protect, restrictTo } = require("./../controllers/authController");
 const {
   createReservation,
   getAllReservations,
   getOneReservation,
   updateReservation,
   deleteReservation,
-  getReservationByRestaurant,
+  getReservationByAccount,
 } = require("./../controllers/reservationController");
 // ordinary routes
 
 router
   .route("/")
   .get(getAllReservations)
-  .get(protect, getReservationByRestaurant)
-  .post(protect, createReservation);
+  .get(getReservationByAccount)
+  .post(createReservation);
 router
   .route("/:id")
-  .get(protect, getOneReservation)
-  .patch(protect, updateReservation)
-  .delete(protect, deleteReservation);
+  .get(getOneReservation)
+  .patch(updateReservation)
+  .delete(deleteReservation);
+
+module.exports = router;
