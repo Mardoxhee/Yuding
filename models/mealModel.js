@@ -16,8 +16,8 @@ const mealSchema = new mongoose.Schema({
     required: [true, "a brief description of the Meal "],
   },
 
-  // restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
-  // reservation: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reservation" }],
+  restaurant: [{ type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" }],
+  reservation: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reservation" }],
 });
 
 const Meal = mongoose.model("Meal", mealSchema);

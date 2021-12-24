@@ -66,7 +66,7 @@ exports.getMealByAccount = async (req, res) => {
 
 exports.getOneMeal = async (req, res) => {
   try {
-    const meal = await Meal.findById(req.params.id);
+    const meal = await Meal.findById(req.params.id).populate("restaurant");
     res.status(200).json({
       status: "success",
       data: {

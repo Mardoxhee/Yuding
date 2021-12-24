@@ -20,28 +20,9 @@ exports.getAllAccounts = async (req, res) => {
   }
 };
 
-// exports.createAccount = async (req, res) => {
-//   try {
-//     const newAccount = await Account.create(req.body);
-//     res.status(201).json({
-//       status: "account created",
-//       data: {
-//         newAccount,
-//       },
-//     });
-//   } catch (err) {
-//     res.status(400).json({
-//       status: "failed",
-//       message: err.message,
-//     });
-//   }
-// };
-
 exports.getAccount = async (req, res) => {
   try {
-    const account = await Account.findById(req.params.id).populate(
-      "restaurant"
-    );
+    const account = await Account.findById(req.params.id);
     res.status(200).json({
       status: "sucess",
       data: {

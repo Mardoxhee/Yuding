@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Mardoxhee/Yuding#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.6.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
@@ -26,6 +27,8 @@
     "moment": "^2.29.1",
     "mongoose": "^6.0.14",
     "nodemailer": "^6.7.2",
+    "nodemailer-sendgrid": "^1.0.3",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^2.0.15",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.3.0",

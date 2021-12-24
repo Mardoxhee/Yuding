@@ -1,7 +1,7 @@
 const Reservation = require("./../models/ReservationModel");
 const APIfeatures = require("./../utils/apiFeatures");
 const moment = require("moment");
-
+const sendMail = require("./../utils/email");
 exports.createReservation = async (req, res) => {
   try {
     let currentDate = moment();
@@ -19,6 +19,18 @@ exports.createReservation = async (req, res) => {
           newReservation,
         },
       });
+      await sendMail({
+        from: "mardoxheeluviki@gmail.com",
+        to: newReservation.emailClient,
+        subject: "You have booked successfully !",
+        html: "<p>Thank you for your booking we are waiting for you !</p> <p> You have booked 2 places on date ...</p>",
+      })
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.error(error.response.body);
+        });
     }
   } catch (err) {
     res.status(400).json({
@@ -76,9 +88,10 @@ exports.getReservationByAccount = async (req, res) => {
 
 exports.getOneReservation = async (req, res) => {
   try {
-    const reservation = await Reservation.findById(req.params.id).populate(
-      "restaurant"
-    );
+    const reservation = await Reservation.findById(req.params.id).populate([
+      "restaurant",
+      "meal",
+    ]);
     res.status(200).json({
       status: "success",
       data: {

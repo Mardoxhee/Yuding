@@ -1,8 +1,7 @@
 const crypto = require("crypto");
 const Account = require("./../models/accountModel");
 const jwt = require("jsonwebtoken");
-const mongoose = require("mongoose");
-const { promisify } = require("util");
+const sendMail = require("./../utils/email");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -22,6 +21,19 @@ exports.signup = async (req, res) => {
         newAccount,
       },
     });
+    await sendMail({
+      from: "mardoxheeluviki@gmail.com",
+      to: newAccount.email,
+      subject: "Account created successfully !",
+      html: "<p>You are registered as restaurator, you can create restaurants and publish all your activities for free</p> <p> The next step for you is to create your first restaurant</p>",
+      // message: "lish your activities for free",
+    })
+      .then(() => {
+        console.log("Email sent");
+      })
+      .catch((error) => {
+        console.error(error.response.body);
+      });
   } catch (err) {
     res.status(400).json({
       status: "fail",
