@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const sendgridTransport = require("nodemailer-sendgrid");
+const sendgridTransport = require("nodemailer-sendgrid-transport");
 
 const sendMail = async (options) => {
   // 1) Create a transporter to send email

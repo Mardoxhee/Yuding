@@ -32,6 +32,7 @@
     "nodemon": "^2.0.15",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.3.0",
+    "twilio": "^3.72.0",
     "validator": "^13.7.0"
   }
 }
