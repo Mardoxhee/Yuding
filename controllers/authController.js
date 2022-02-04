@@ -22,7 +22,6 @@ exports.signup = async (req, res) => {
       },
     });
     await sendMail({
-      from: "mardoxheeluviki@gmail.com",
       to: newAccount.email,
       subject: "Account created successfully !",
       html: "<p>You are registered as restaurator, you can create restaurants and publish all your activities for free</p> <p> The next step for you is to create your first restaurant</p>",
@@ -122,7 +121,7 @@ exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // roles is an array like ["admin", "moderator", "user"]
     if (!roles.includes(req.body.account)) {
-      console.log("start:", req.body.account);
+      console.log("restrict:", req.body.account);
       return res.status(403).json({
         status: "failed",
         message: "you do not have permission to do this action",

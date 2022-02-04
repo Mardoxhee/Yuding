@@ -2,6 +2,7 @@ const Reservation = require("./../models/ReservationModel");
 const APIfeatures = require("./../utils/apiFeatures");
 const moment = require("moment");
 const sendMail = require("./../utils/email");
+const sendSms = require("./../utils/sms");
 exports.createReservation = async (req, res) => {
   try {
     let currentDate = moment();
@@ -20,10 +21,9 @@ exports.createReservation = async (req, res) => {
         },
       });
       await sendMail({
-        from: "mardoxheeluviki@gmail.com",
         to: newReservation.emailClient,
-        subject: "You have booked successfully !",
-        html: "<p>Thank you for your booking we are waiting for you !</p> <p> You have booked 2 places on date ...</p>",
+        subject: `M. ${newReservation.nomduClient} ${newReservation.prenomClient}, You have booked successfully !`,
+        html: `<p>Thank you for using Yuding Platform  !</p> <p> You have booked ${newReservation.nbrePlaces} places for the date : ${newReservation.date}  at ${newReservation.restaurant.restaurantName} restaurant. we are honored to receive you in our restaurant !</p><p> The manager. </p>`,
       })
         .then(() => {
           console.log("Email sent");
@@ -31,6 +31,10 @@ exports.createReservation = async (req, res) => {
         .catch((error) => {
           console.error(error.response.body);
         });
+      await sendSms({
+        to: newReservation.phoneNumber,
+        body: `Thank you for using Yuding Platform  !  You have booked ${newReservation.nbrePlaces} places for the date : ${newReservation.date}  at ${newReservation.restaurant.restaurantName} restaurant. we are honored to receive you in our restaurant ! The manager.  `,
+      });
     }
   } catch (err) {
     res.status(400).json({
