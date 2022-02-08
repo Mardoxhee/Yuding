@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
-const AccountRouter = require("./Routes/accountRoutes");
-const RestaurantRouter = require("./Routes/restaurantRoutes");
-const ReservationRouter = require("./Routes/reservationRoutes");
-const MealRouter = require("./Routes/MealRoutes");
+const AccountRouter = require("./routes/accountRoutes");
+const RestaurantRouter = require("./routes/restaurantRoutes");
+const ReservationRouter = require("./routes/reservationRoutes");
+const MealRouter = require("./routes/MealRoutes");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 // const AppError = require("./utils/appError");
