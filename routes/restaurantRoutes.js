@@ -9,7 +9,7 @@ const {
   updateRestaurant,
   deleteRestaurant,
   getRestaurantByAccount,
-} = require("./../controllers/RestaurantController");
+} = require("./../controllers/restaurantController");
 
 // ordinary routes
 router.route("/all").get(getAllRestaurants);
