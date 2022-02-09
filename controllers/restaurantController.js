@@ -11,6 +11,7 @@ exports.createRestaurant = async (req, res) => {
   try {
     const bodies = req.body;
     bodies.account = req.decoded.id;
+    console.log("decoded:", req);
     // bodies.reservation = [
     //   {
     //     reservation,
