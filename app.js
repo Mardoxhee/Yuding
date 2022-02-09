@@ -43,7 +43,7 @@ app.use("/reservations/all", ReservationRouter);
 app.use("/restaurants/all", RestaurantRouter);
 app.use("/api/accounts", AccountRouter);
 app.use("/api/restaurants", RestaurantRouter);
-// app.use("/api/reservations", ReservationRouter);
+app.use("/api/reservations", ReservationRouter);
 app.use("/api/meals", MealRouter);
 
 // Error test
