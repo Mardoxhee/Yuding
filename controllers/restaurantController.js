@@ -1,4 +1,4 @@
-const Restaurant = require("./../models/RestaurantModel");
+const Restaurant = require("../models/RestaurantModel");
 const APIfeatures = require("./../utils/apiFeatures");
 
 exports.aliasTopRestaurants = (req, res, next) => {
