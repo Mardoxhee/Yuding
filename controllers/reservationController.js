@@ -1,4 +1,4 @@
-const Reservation = require("./../models/ReservationModel");
+const Reservation = require("./../models/reservationModel");
 const APIfeatures = require("./../utils/apiFeatures");
 const moment = require("moment");
 const sendMail = require("./../utils/email");
