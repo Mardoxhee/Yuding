@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { protect, restrictTo } = require("./../controllers/authController");
+const cors = require("cors");
 
 // juste un petit commentaire pour faire le push
 
@@ -14,7 +15,7 @@ const {
 } = require("./../controllers/restaurantController");
 
 // ordinary routes
-router.route("/").get(getAllRestaurants);
+router.route("/").get( getAllRestaurants);
 router.route("/").post(protect, createRestaurant);
 router
   .route("/:id")

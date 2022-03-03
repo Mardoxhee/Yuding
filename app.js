@@ -6,6 +6,7 @@ const ReservationRouter = require("./routes/reservationRoutes");
 const MealRouter = require("./routes/mealRoutes");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+var cors = require("cors");
 // const AppError = require("./utils/appError");
 app.use(express.json());
 
@@ -40,12 +41,11 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *          description : successfull !
  */
 app.use("/reservations/all", ReservationRouter);
-// app.use("/restaurants/all", RestaurantRouter);
 app.use("/accounts", AccountRouter);
-app.use("/restaurants", RestaurantRouter);
+app.use("/restaurants", cors(corsOptions), RestaurantRouter);
 app.use("/reservations", ReservationRouter);
 app.use("/meals", MealRouter);
-
+app.use(cors());
 // Error test
 // app.all("*", (req, res, next) => {
 //   next(new AppError(`can't find ${req.originalUrl} on this server !`, 404));
@@ -60,5 +60,9 @@ app.use("/meals", MealRouter);
 //     message: err.message,
 //   });
 // });
+var corsOptions = {
+  origin: "http://localhost:3001/",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 module.exports = app;
