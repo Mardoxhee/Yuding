@@ -39,8 +39,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *        '200':
  *          description : successfull !
  */
-app.use("/reservations/all", ReservationRouter);
-app.use("/restaurants/all", RestaurantRouter);
+app.use("/api/reservations/all", ReservationRouter);
+app.use("/api/restaurants/all", RestaurantRouter);
 app.use("/api/accounts", AccountRouter);
 app.use("/api/restaurants", RestaurantRouter);
 app.use("/api/reservations", ReservationRouter);
