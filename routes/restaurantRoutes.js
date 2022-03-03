@@ -21,7 +21,7 @@ router
   .post(protect, createRestaurant);
 router
   .route("/:id")
-  .get(protect, getOneRestaurant)
+  .get(getOneRestaurant)
   .patch(protect, updateRestaurant)
   .delete(protect, deleteRestaurant);
 
