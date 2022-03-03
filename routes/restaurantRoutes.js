@@ -14,13 +14,11 @@ const {
 } = require("./../controllers/restaurantController");
 
 // ordinary routes
-router.route("/all").get(getAllRestaurants);
-router
-  .route("/")
-  .get(protect, getRestaurantByAccount)
-  .post(protect, createRestaurant);
+router.route("/").get(getAllRestaurants);
+router.route("/").post(protect, createRestaurant);
 router
   .route("/:id")
+  .get(protect, getRestaurantByAccount)
   .get(getOneRestaurant)
   .patch(protect, updateRestaurant)
   .delete(protect, deleteRestaurant);

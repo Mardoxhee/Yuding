@@ -40,7 +40,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *          description : successfull !
  */
 app.use("/reservations/all", ReservationRouter);
-app.use("/restaurants/all", RestaurantRouter);
+// app.use("/restaurants/all", RestaurantRouter);
 app.use("/accounts", AccountRouter);
 app.use("/restaurants", RestaurantRouter);
 app.use("/reservations", ReservationRouter);
