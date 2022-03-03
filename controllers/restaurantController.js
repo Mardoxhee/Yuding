@@ -1,4 +1,4 @@
-const Restaurant = require("./../models/RestaurantModel");
+const Restaurant = require("./../models/restaurantModel");
 const APIfeatures = require("./../utils/apiFeatures");
 
 exports.aliasTopRestaurants = (req, res, next) => {
@@ -11,6 +11,7 @@ exports.createRestaurant = async (req, res) => {
   try {
     const bodies = req.body;
     bodies.account = req.decoded.id;
+    console.log("decoded:", req);
     // bodies.reservation = [
     //   {
     //     reservation,

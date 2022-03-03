@@ -1,4 +1,4 @@
-const Meal = require("./../models/MealModel");
+const Meal = require("./../models/mealModel");
 const APIfeatures = require("./../utils/apiFeatures");
 
 exports.createMeal = async (req, res) => {

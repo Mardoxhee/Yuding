@@ -27,7 +27,7 @@ const restaurantSchema = new mongoose.Schema({
     type: [
       {
         street: { type: String },
-        numer: { type: Number },
+        number: { type: Number },
         township: { type: String },
         quater: { type: String },
         reference: { type: String },
@@ -37,6 +37,21 @@ const restaurantSchema = new mongoose.Schema({
   nbrPlaces: {
     type: Number,
     required: [true, "must put this information"],
+  },
+  category: {
+    type: String,
+    default: "classic",
+    enum: [
+      "cafeteria",
+      "steak-house",
+      "sandwicherie",
+      "classic",
+      "vegetarien",
+      "diétetiques",
+      "fast-food",
+      "snack",
+      "hamburgerie",
+    ],
   },
   map: { type: String },
   pictures: { type: String },

@@ -12,7 +12,7 @@ const sendMail = async (options) => {
   // 2) Define the email options
 
   const mailOptions = {
-    from: options.from,
+    from: "yuding.platform@gmail.com",
     to: options.to,
     subject: options.subject,
     message: options.message,

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { protect, restrictTo } = require("./../controllers/authController");
 
+// juste un petit commentaire pour faire le push
+
 const {
   createRestaurant,
   getAllRestaurants,
@@ -9,7 +11,7 @@ const {
   updateRestaurant,
   deleteRestaurant,
   getRestaurantByAccount,
-} = require("./../controllers/RestaurantController");
+} = require("./../controllers/restaurantController");
 
 // ordinary routes
 router.route("/all").get(getAllRestaurants);
