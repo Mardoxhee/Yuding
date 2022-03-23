@@ -41,7 +41,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *        '200':
  *          description : successfull !
  */
-app.use("/category", cors(corsOptions), CategoryRouter);
+// app.use("/category", cors(corsOptions), CategoryRouter);
 app.use("/reservations/all", cors(corsOptions), ReservationRouter);
 app.use("/accounts", cors(corsOptions), AccountRouter);
 app.use("/restaurants", cors(corsOptions), RestaurantRouter);

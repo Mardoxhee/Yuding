@@ -99,7 +99,6 @@ exports.getRestaurantByCategory = async (req, res) => {
 exports.getOneRestaurant = async (req, res) => {
   try {
     const restaurant = await Restaurant.findById(req.params.id).populate([
-      "reservation",
       "account",
     ]);
 
