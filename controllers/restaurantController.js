@@ -122,7 +122,6 @@ exports.updateRestaurant = async (req, res) => {
     const restaurant = await Restaurant.findByIdAndUpdate(
       req.params.id,
       req.body,
-
       {
         new: true,
         runValidators: true,

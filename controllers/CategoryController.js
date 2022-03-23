@@ -1,12 +1,12 @@
 const Category = require("./../models/categoryModel");
 const APIfeatures = require("./../utils/apiFeatures");
 
-exports.aliasTopCategories = (req, res, next) => {
-  req.query.limit = "4";
-  req.query.sort = "createdAt";
-  req.query.fields = "categoryName";
-  next();
-};
+// exports.aliasTopCategories = (req, res, next) => {
+//   req.query.limit = "4";
+//   req.query.sort = "createdAt";
+//   req.query.fields = "categoryName";
+//   next();
+// };
 
 exports.createCategory = async (req, res) => {
   try {
@@ -57,11 +57,8 @@ exports.getAllCategories = async (req, res) => {
 
 exports.getOneCategory = async (req, res) => {
   try {
-    const category = await Category.findById(req.params.id).populate([
-      "restaurants",
-    ]);
+    const category = await Category.findById(req.params.id);
     res.status(200).json({
-      numberOfRestaurants: restaurant.length,
       status: "success",
       data: {
         category,
