@@ -4,9 +4,10 @@ const AccountRouter = require("./routes/accountRoutes");
 const RestaurantRouter = require("./routes/restaurantRoutes");
 const ReservationRouter = require("./routes/reservationRoutes");
 const MealRouter = require("./routes/mealRoutes");
+const CategoryRouter = require("./routes/categoryRoutes");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const CategoryRouter = require("./routes/categoryRoutes");
+
 var cors = require("cors");
 
 app.use(express.json());
