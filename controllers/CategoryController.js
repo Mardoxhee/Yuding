@@ -77,7 +77,7 @@ exports.getOneCategory = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
   try {
-    const Category = await Category.findByIdAndUpdate(req.params.id, req.body, {
+    const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
     res.status(200).json({
