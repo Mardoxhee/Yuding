@@ -41,12 +41,12 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *        '200':
  *          description : successfull !
  */
-app.use("/category", CategoryRouter);
-app.use("/reservations/all", ReservationRouter);
-app.use("/accounts", AccountRouter);
+app.use("/category", cors(corsOptions), CategoryRouter);
+app.use("/reservations/all", cors(corsOptions), ReservationRouter);
+app.use("/accounts", cors(corsOptions), AccountRouter);
 app.use("/restaurants", cors(corsOptions), RestaurantRouter);
-app.use("/reservations", ReservationRouter);
-app.use("/meals", MealRouter);
+app.use("/reservations", cors(corsOptions), ReservationRouter);
+app.use("/meals", cors(corsOptions), MealRouter);
 app.use(cors());
 // Error test
 // app.all("*", (req, res, next) => {

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const categorySchema = new mongoose.Schema({
   categoryName: {
@@ -12,7 +13,6 @@ const categorySchema = new mongoose.Schema({
   },
 
   restaurants: [{ type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" }],
-  // restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
 });
 
 const Category = mongoose.model("Category", categorySchema);

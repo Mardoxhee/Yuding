@@ -23,7 +23,7 @@ exports.createCategory = async (req, res) => {
       code: err.code,
       message:
         err.code === 11000
-          ? "two Categories can not have the same name yrah "
+          ? "two Categories can not have the same name  "
           : err.message,
     });
   }
