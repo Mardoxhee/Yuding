@@ -41,27 +41,14 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *        '200':
  *          description : successfull !
  */
-// app.use("/category", cors(corsOptions), CategoryRouter);
+app.use("/category", cors(corsOptions), CategoryRouter);
 app.use("/reservations/all", cors(corsOptions), ReservationRouter);
 app.use("/accounts", cors(corsOptions), AccountRouter);
 app.use("/restaurants", cors(corsOptions), RestaurantRouter);
 app.use("/reservations", cors(corsOptions), ReservationRouter);
 app.use("/meals", cors(corsOptions), MealRouter);
 app.use(cors());
-// Error test
-// app.all("*", (req, res, next) => {
-//   next(new AppError(`can't find ${req.originalUrl} on this server !`, 404));
-// });
-// Error handling function definitaion
-// app.use((err, req, res, next) => {
-//   res.statusCode = err.statusConde || 500;
-//   err.status = err.status || "error";
 
-//   res.status(err.statusCode).json({
-//     status: err.status,
-//     message: err.message,
-//   });
-// });
 var corsOptions = {
   origin: "http://localhost:8081/",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
