@@ -12,11 +12,7 @@ exports.createRestaurant = async (req, res) => {
     const bodies = req.body;
     bodies.account = req.decoded.id;
     console.log("decoded:", req);
-    // bodies.reservation = [
-    //   {
-    //     reservation,
-    //   },
-    // ];
+
     const newRestaurant = await Restaurant.create(bodies);
     res.status(201).json({
       status: "Restaurant created successfully",
@@ -43,7 +39,7 @@ exports.getAllRestaurants = async (req, res) => {
       .sort()
       .limitFields()
       .paginate();
-    const restaurants = await features.query;
+    const restaurants = await features.query.populate("category");
 
     // const restaurants = await features.query;
     // Send response
@@ -67,10 +63,29 @@ exports.getRestaurantByAccount = async (req, res) => {
     const restaurant = await Restaurant.find({
       account: req.decoded.id,
     }).populate("account");
+
     res.status(200).json({
       status: "success",
       data: {
         restaurant,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "failed",
+      message: err.message,
+    });
+  }
+};
+exports.getRestaurantByCategory = async (req, res) => {
+  try {
+    const features = new APIfeatures(Restaurant.find(), req.query).filter();
+    const restaurants = await features.query.populate("category");
+    res.status(200).json({
+      status: "success",
+      numberOfRestaurants: restaurants.length,
+      data: {
+        restaurants,
       },
     });
   } catch (err) {
@@ -87,6 +102,7 @@ exports.getOneRestaurant = async (req, res) => {
       "reservation",
       "account",
     ]);
+
     res.status(200).json({
       status: "success",
       data: {
@@ -106,11 +122,13 @@ exports.updateRestaurant = async (req, res) => {
     const restaurant = await Restaurant.findByIdAndUpdate(
       req.params.id,
       req.body,
+
       {
         new: true,
         runValidators: true,
       }
     );
+
     res.status(200).json({
       statusstatus: "success",
       data: {

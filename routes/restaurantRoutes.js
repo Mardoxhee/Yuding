@@ -3,8 +3,6 @@ const router = express.Router();
 const { protect, restrictTo } = require("./../controllers/authController");
 const cors = require("cors");
 
-// juste un petit commentaire pour faire le push
-
 const {
   createRestaurant,
   getAllRestaurants,
@@ -12,16 +10,20 @@ const {
   updateRestaurant,
   deleteRestaurant,
   getRestaurantByAccount,
+  getRestaurantByCategory,
 } = require("./../controllers/restaurantController");
 
 // ordinary routes
-router.route("/").get( getAllRestaurants);
+router.route("/").get(getAllRestaurants);
+
 router.route("/").post(protect, createRestaurant);
+router.route("/by-account").get(protect, getRestaurantByAccount);
+router.route("/by-category/").get(getRestaurantByCategory);
+
 router
   .route("/:id")
-  .get(protect, getRestaurantByAccount)
   .get(getOneRestaurant)
-  .patch(protect, updateRestaurant)
-  .delete(protect, deleteRestaurant);
+  .patch(protect, restrictTo, updateRestaurant)
+  .delete(protect, restrictTo, deleteRestaurant);
 
 module.exports = router;

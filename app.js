@@ -6,8 +6,9 @@ const ReservationRouter = require("./routes/reservationRoutes");
 const MealRouter = require("./routes/mealRoutes");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const CategoryRouter = require("./routes/categoryRoutes");
 var cors = require("cors");
-// const AppError = require("./utils/appError");
+
 app.use(express.json());
 
 // Extended: https://swagger.io/specification/#infoObject
@@ -40,6 +41,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *        '200':
  *          description : successfull !
  */
+app.use("/category", CategoryRouter);
 app.use("/reservations/all", ReservationRouter);
 app.use("/accounts", AccountRouter);
 app.use("/restaurants", cors(corsOptions), RestaurantRouter);
@@ -61,7 +63,7 @@ app.use(cors());
 //   });
 // });
 var corsOptions = {
-  origin: "http://localhost:3001/",
+  origin: "http://localhost:8081/",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 

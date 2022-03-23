@@ -117,16 +117,27 @@ exports.protect = async (req, res, next) => {
   }
 };
 
-exports.restrictTo = (...roles) => {
-  return (req, res, next) => {
-    // roles is an array like ["admin", "moderator", "user"]
-    if (!roles.includes(req.body.account)) {
-      console.log("restrict:", req.body.account);
-      return res.status(403).json({
-        status: "failed",
-        message: "you do not have permission to do this action",
-      });
-    }
+exports.restrictTo = (roles) => {
+  return async (req, res, next) => {
+    await Account.findById(req.decoded.id).then(async (account) => {
+      if (!roles.includes(account.role)) {
+        return res.status(403).json({
+          status: "fail",
+          message: "you do not have permission to do this action",
+        });
+      }
+      if (data.role === "user") {
+        await Restaurant.findById(req.params.id).then((restaurant) => {
+          if (restaurant.account !== req.decoded.id) {
+            return res.status(403).json({
+              status: "fail",
+              message:
+                "you do not have permission to do this action because you are not a owner of this salon",
+            });
+          }
+        });
+      }
+    });
     next();
   };
 };

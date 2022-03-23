@@ -58,7 +58,7 @@ exports.getAllReservations = async (req, res) => {
     // Send response
     res.status(200).json({
       status: "Success",
-      numberOfRestuarants: Reservation.length,
+      numberOfReserations: Reservation.length,
       data: {
         reservations,
       },

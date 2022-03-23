@@ -38,25 +38,26 @@ const restaurantSchema = new mongoose.Schema({
     type: Number,
     required: [true, "must put this information"],
   },
-  category: {
-    type: String,
-    default: "classic",
-    enum: [
-      "cafeteria",
-      "steak-house",
-      "sandwicherie",
-      "classic",
-      "vegetarien",
-      "diétetiques",
-      "fast-food",
-      "snack",
-      "hamburgerie",
-    ],
-  },
+  // category: {
+  //   type: Array,
+  //   default: ["classic"],
+  //   enum: [
+  //     "cafeteria",
+  //     "steak-house",
+  //     "sandwicherie",
+  //     "classic",
+  //     "vegetarien",
+  //     "diétetiques",
+  //     "fast-food",
+  //     "snack",
+  //     "hamburgerie",
+  //   ],
+  // },
   map: { type: String },
   pictures: { type: String },
   account: { type: mongoose.Schema.Types.ObjectId, ref: "Account" },
   reservation: { type: mongoose.Schema.Types.ObjectId, ref: "Reservation" },
+  category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);

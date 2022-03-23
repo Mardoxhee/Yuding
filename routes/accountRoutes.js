@@ -1,4 +1,5 @@
 const express = require("express");
+const { protect, restrictTo } = require("./../controllers/authController");
 const router = express.Router();
 const {
   signup,
@@ -13,6 +14,7 @@ const {
   updateAccount,
   deleteAccount,
 } = require("./../controllers/acccountController");
+router.route("/accounts").get(protect, restrictTo, getAllAccounts);
 
 router.post("/signup", signup);
 router.post("/login", login);
