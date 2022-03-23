@@ -39,7 +39,7 @@ exports.getAllRestaurants = async (req, res) => {
       .sort()
       .limitFields()
       .paginate();
-    const restaurants = await features.query.populate("category");
+    const restaurants = await features.query;
 
     // const restaurants = await features.query;
     // Send response
