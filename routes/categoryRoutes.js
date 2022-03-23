@@ -8,7 +8,7 @@ const {
   updateCategory,
   deleteCategory,
   getAllCategories,
-} = require("./../controllers/categoryController");
+} = require("./../controllers/categorycontroller");
 // thebheze
 router.route("/").get(getAllCategories).post(createCategory);
 router
