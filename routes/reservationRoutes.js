@@ -10,8 +10,11 @@ const {
   getReservationByAccount,
 } = require("./../controllers/reservationController");
 // ordinary routes
-router.route("/all").get(getAllReservations);
-router.route("/").get(getReservationByAccount).post(createReservation);
+router.route("/all/").get(getAllReservations);
+router
+  .route("/")
+  .get(protect, restrictTo("user"), getReservationByAccount)
+  .post(createReservation);
 router
   .route("/:id")
   .get(getOneReservation)

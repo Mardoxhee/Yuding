@@ -16,6 +16,12 @@ const mealSchema = new mongoose.Schema({
     required: [true, "a brief description of the Meal "],
   },
 
+  mealType: {
+    type: Array,
+    Enum: ["Entree ", "Repas principal", "dessert", "offres special"],
+    default: "Repas principal",
+  },
+
   restaurant: [{ type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" }],
   reservation: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reservation" }],
 });

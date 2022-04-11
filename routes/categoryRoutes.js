@@ -10,7 +10,7 @@ const {
   getAllCategories,
 } = require("./../controllers/categoryController");
 // thebheze
-router.route("/").get(getAllCategories).post(createCategory);
+router.route("/").get(getAllCategories).post(protect, createCategory);
 router
   .route("/:id")
   .get(getOneCategory)

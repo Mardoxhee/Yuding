@@ -1,12 +1,12 @@
-const Meal = require("./../models/mealModel");
+const Temoignage = require("./../models/temoignagesModel");
 const APIfeatures = require("./../utils/apiFeatures");
 
-exports.createMeal = async (req, res) => {
+exports.createTemoignage = async (req, res) => {
   try {
-    const newMeal = await Meal.create(req.body);
+    const newTemoignage = await Temoignage.create(req.body);
     res.status(201).json({
-      status: "meal created successfully",
-      newMeal,
+      status: "temoignage created successfully",
+      newTemoignage,
     });
   } catch (err) {
     res.status(400).json({
@@ -17,21 +17,21 @@ exports.createMeal = async (req, res) => {
   }
 };
 
-exports.getAllMeals = async (req, res) => {
+exports.getAllTemoignages = async (req, res) => {
   try {
-    const features = new APIfeatures(Meal.find(), req.query)
+    const features = new APIfeatures(Temoignage.find(), req.query)
       .filter()
       .sort()
       .limitFields()
       .paginate();
-    const meals = await features.query.populate(["account", "restaurant"]);
+    const temoignages = await features.query.populate("account");
 
-    // const meal = await features.query;
+    // const Temoignage = await features.query;
     // Send response
     res.status(200).json({
       status: "Success",
-      numberOfMeals: Meal.length,
-      meals,
+      numberOfTemoignages: Temoignage.length,
+      temoignages,
     });
   } catch (err) {
     res.status(400).json({
@@ -41,15 +41,14 @@ exports.getAllMeals = async (req, res) => {
   }
 };
 
-exports.getMealByAccount = async (req, res) => {
+exports.getTemoignageByAccount = async (req, res) => {
   try {
-    const meal = await Meal.find({
+    const temoignage = await Temoignage.find({
       account: req.decoded.id,
     }).populate("account");
     res.status(200).json({
       status: "success",
-
-      meal,
+      temoignage,
     });
   } catch (err) {
     res.status(400).json({
@@ -59,12 +58,14 @@ exports.getMealByAccount = async (req, res) => {
   }
 };
 
-exports.getOneMeal = async (req, res) => {
+exports.getOneTemoignage = async (req, res) => {
   try {
-    const meal = await Meal.findById(req.params.id).populate("restaurant");
+    const temoignage = await Temoignage.findById(req.params.id).populate(
+      "account"
+    );
     res.status(200).json({
       status: "success",
-      meal,
+      temoignage,
     });
   } catch (err) {
     res.status(400).json({
@@ -74,15 +75,19 @@ exports.getOneMeal = async (req, res) => {
   }
 };
 
-exports.updateMeal = async (req, res) => {
+exports.updateTemoignage = async (req, res) => {
   try {
-    const meal = await Meal.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const temoignage = await Temoignage.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     res.status(200).json({
       statusstatus: "success",
-      meal,
+      temoignage,
     });
   } catch (err) {
     res.status(400).json({
@@ -92,11 +97,11 @@ exports.updateMeal = async (req, res) => {
   }
 };
 
-exports.deleteMeal = async (req, res) => {
+exports.deleteTemoignage = async (req, res) => {
   try {
-    await Meal.findByIdAndDelete(req.params.id);
+    await Temoignage.findByIdAndDelete(req.params.id);
     res.status(200).json({
-      status: "meal deleted successfully",
+      status: "temoignage deleted successfully",
       data: null,
     });
   } catch (err) {

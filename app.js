@@ -4,6 +4,7 @@ const AccountRouter = require("./routes/accountRoutes");
 const RestaurantRouter = require("./routes/restaurantRoutes");
 const ReservationRouter = require("./routes/reservationRoutes");
 const MealRouter = require("./routes/mealRoutes");
+const TemoignageRouter = require("./routes/temoignagesRoutes");
 const CategoryRouter = require("./routes/categoryRoutes");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
@@ -43,11 +44,12 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *          description : successfull !
  */
 app.use("/category", cors(corsOptions), CategoryRouter);
-app.use("/reservations/all", cors(corsOptions), ReservationRouter);
+
 app.use("/accounts", cors(corsOptions), AccountRouter);
 app.use("/restaurants", cors(corsOptions), RestaurantRouter);
 app.use("/reservations", cors(corsOptions), ReservationRouter);
 app.use("/meals", cors(corsOptions), MealRouter);
+app.use("/temoignages", cors(corsOptions), TemoignageRouter);
 app.use(cors());
 
 var corsOptions = {

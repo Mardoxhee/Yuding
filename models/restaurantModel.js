@@ -15,6 +15,13 @@ const restaurantSchema = new mongoose.Schema({
     type: String,
     required: [true, "a brief description of the restaurant "],
   },
+  menuDescription: {
+    type: String,
+    required: [
+      true,
+      "a brief description of the menu you propose is important ",
+    ],
+  },
   openTime: {
     type: Date,
     // required: [true, "mention this"],
@@ -38,6 +45,15 @@ const restaurantSchema = new mongoose.Schema({
     type: Number,
     required: [true, "must put this information"],
   },
+  pays: {
+    type: String,
+    defaultValue: "mixte",
+  },
+  prixMoyen: { type: Number, required: [true, "must put this information"] },
+  reduction: {
+    type: Number,
+    defaultValue: 20,
+  },
   // category: {
   //   type: Array,
   //   default: ["classic"],
@@ -53,6 +69,7 @@ const restaurantSchema = new mongoose.Schema({
   //     "hamburgerie",
   //   ],
   // },
+  isRecommanded: { type: Boolean, default: false },
   map: { type: String },
   pictures: { type: String },
   account: { type: mongoose.Schema.Types.ObjectId, ref: "Account" },

@@ -13,9 +13,8 @@ exports.createCategory = async (req, res) => {
     const newCategory = await Category.create(req.body);
     res.status(201).json({
       status: "Category created successfully",
-      data: {
-        newCategory,
-      },
+
+      newCategory,
     });
   } catch (err) {
     res.status(400).json({
@@ -43,9 +42,7 @@ exports.getAllCategories = async (req, res) => {
     res.status(200).json({
       status: "Success",
       numberOfCategories: categories.length,
-      data: {
-        categories,
-      },
+      categories,
     });
   } catch (err) {
     res.status(400).json({
@@ -60,9 +57,7 @@ exports.getOneCategory = async (req, res) => {
     const category = await Category.findById(req.params.id);
     res.status(200).json({
       status: "success",
-      data: {
-        category,
-      },
+      category,
     });
   } catch (err) {
     res.status(400).json({
@@ -79,9 +74,7 @@ exports.updateCategory = async (req, res) => {
     });
     res.status(200).json({
       statusstatus: "success",
-      data: {
-        category,
-      },
+      category,
     });
   } catch (err) {
     res.status(400).json({

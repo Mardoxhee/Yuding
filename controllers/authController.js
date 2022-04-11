@@ -131,8 +131,7 @@ exports.restrictTo = (roles) => {
           if (restaurant.account !== req.decoded.id) {
             return res.status(403).json({
               status: "fail",
-              message:
-                "you do not have permission to do this action because you are not a owner of this salon",
+              message: "unauthorized",
             });
           }
         });

@@ -4,7 +4,7 @@ const APIfeatures = require("./../utils/apiFeatures");
 exports.aliasTopRestaurants = (req, res, next) => {
   req.query.limit = "4";
   req.query.sort = "createdAt";
-  req.query.fields = "restaurantName,categorie, country";
+  req.query.fields = "restaurantName,category, country";
   next();
 };
 exports.createRestaurant = async (req, res) => {
@@ -16,9 +16,8 @@ exports.createRestaurant = async (req, res) => {
     const newRestaurant = await Restaurant.create(bodies);
     res.status(201).json({
       status: "Restaurant created successfully",
-      data: {
-        newRestaurant,
-      },
+
+      newRestaurant,
     });
   } catch (err) {
     res.status(400).json({
@@ -39,16 +38,15 @@ exports.getAllRestaurants = async (req, res) => {
       .sort()
       .limitFields()
       .paginate();
-    const restaurants = await features.query;
+    const restaurants = await features.query.populate("category");
 
     // const restaurants = await features.query;
     // Send response
     res.status(200).json({
       status: "Success",
       numberOfRestuarants: restaurants.length,
-      data: {
-        restaurants,
-      },
+      // numberOfPages: restaurants.length / 20,
+      restaurants,
     });
   } catch (err) {
     res.status(400).json({
@@ -66,9 +64,8 @@ exports.getRestaurantByAccount = async (req, res) => {
 
     res.status(200).json({
       status: "success",
-      data: {
-        restaurant,
-      },
+
+      restaurant,
     });
   } catch (err) {
     res.status(400).json({
@@ -77,6 +74,7 @@ exports.getRestaurantByAccount = async (req, res) => {
     });
   }
 };
+
 exports.getRestaurantByCategory = async (req, res) => {
   try {
     const features = new APIfeatures(Restaurant.find(), req.query).filter();
@@ -84,9 +82,8 @@ exports.getRestaurantByCategory = async (req, res) => {
     res.status(200).json({
       status: "success",
       numberOfRestaurants: restaurants.length,
-      data: {
-        restaurants,
-      },
+
+      restaurants,
     });
   } catch (err) {
     res.status(400).json({
@@ -104,9 +101,8 @@ exports.getOneRestaurant = async (req, res) => {
 
     res.status(200).json({
       status: "success",
-      data: {
-        restaurant,
-      },
+
+      restaurant,
     });
   } catch (err) {
     res.status(400).json({
@@ -129,9 +125,7 @@ exports.updateRestaurant = async (req, res) => {
 
     res.status(200).json({
       statusstatus: "success",
-      data: {
-        restaurant,
-      },
+      restaurant,
     });
   } catch (err) {
     res.status(400).json({

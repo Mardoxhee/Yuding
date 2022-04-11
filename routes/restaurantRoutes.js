@@ -15,7 +15,6 @@ const {
 
 // ordinary routes
 router.route("/").get(getAllRestaurants);
-
 router.route("/").post(protect, createRestaurant);
 router.route("/by-account").get(protect, getRestaurantByAccount);
 router.route("/by-category/").get(getRestaurantByCategory);
