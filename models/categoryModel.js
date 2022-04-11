@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 
 const categorySchema = new mongoose.Schema({
   categoryName: {
@@ -12,7 +11,7 @@ const categorySchema = new mongoose.Schema({
     required: [true, "a category has to have imperatively an icone"],
   },
 
-  restaurants: [{ type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" }],
+  restaurants: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
 });
 
 const Category = mongoose.model("Category", categorySchema);

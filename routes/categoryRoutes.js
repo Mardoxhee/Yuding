@@ -9,7 +9,7 @@ const {
   deleteCategory,
   getAllCategories,
 } = require("./../controllers/categoryController");
-// thebheze
+
 router.route("/").get(getAllCategories).post(protect, createCategory);
 router
   .route("/:id")

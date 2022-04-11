@@ -1,12 +1,12 @@
 const Category = require("./../models/categoryModel");
 const APIfeatures = require("./../utils/apiFeatures");
 
-// exports.aliasTopCategories = (req, res, next) => {
-//   req.query.limit = "4";
-//   req.query.sort = "createdAt";
-//   req.query.fields = "categoryName";
-//   next();
-// };
+exports.aliasTopCategories = (req, res, next) => {
+  req.query.limit = "4";
+  req.query.sort = "createdAt";
+  req.query.fields = "categoryName";
+  next();
+};
 
 exports.createCategory = async (req, res) => {
   try {
