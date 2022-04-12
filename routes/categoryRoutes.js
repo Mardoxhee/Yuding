@@ -8,7 +8,7 @@ const {
   updateCategory,
   deleteCategory,
   getAllCategories,
-} = require("./../controllers/categoryController");
+} = require("../controllers/categoryController");
 
 router.route("/").get(getAllCategories).post(protect, createCategory);
 router
