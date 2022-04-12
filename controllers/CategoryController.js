@@ -1,5 +1,5 @@
-const Category = require("../models/categoryModel");
-const APIfeatures = require("../utils/apiFeatures");
+const Category = require("./../models/categoryModel");
+const APIfeatures = require("./../utils/apiFeatures");
 
 exports.aliasTopCategories = (req, res, next) => {
   req.query.limit = "4";
