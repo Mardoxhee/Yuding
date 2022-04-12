@@ -43,8 +43,12 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *        '200':
  *          description : successfull !
  */
+app.get("/", function (req, res) {
+  res.send(
+    "Welcome on Yuding platform APi ========== copy this link to read the documenation of this api ======================== https://docs.google.com/document/d/1qo06FtuJOP4jzVf2ewAspeEGRnIJEly3b4ZzpQ7tGxg/edit?usp=sharing"
+  );
+});
 app.use("/category", cors(corsOptions), CategoryRouter);
-
 app.use("/accounts", cors(corsOptions), AccountRouter);
 app.use("/restaurants", cors(corsOptions), RestaurantRouter);
 app.use("/reservations", cors(corsOptions), ReservationRouter);
