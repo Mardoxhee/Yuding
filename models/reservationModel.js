@@ -22,6 +22,10 @@ const reservationSchema = new mongoose.Schema({
     type: Date,
     required: [true, "must have a date"],
   },
+  time: {
+    type: Date,
+    required: [true, "precise time"],
+  },
 
   nbrePlaces: {
     type: Number,
