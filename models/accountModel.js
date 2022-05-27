@@ -59,7 +59,7 @@ const accountSchema = new mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
-  restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
+  restaurant: [{ type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" }],
 });
 
 accountSchema.pre("save", async function (next) {

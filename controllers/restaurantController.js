@@ -8,10 +8,10 @@ exports.aliasTopRestaurants = (req, res, next) => {
   next();
 };
 exports.createRestaurant = async (req, res) => {
+  console.log("raquest data vaues", req.body);
   try {
     const bodies = req.body;
     bodies.account = req.decoded.id;
-    console.log("decoded:", req);
 
     const newRestaurant = await Restaurant.create(bodies);
     res.status(201).json({
@@ -20,15 +20,21 @@ exports.createRestaurant = async (req, res) => {
       newRestaurant,
     });
   } catch (err) {
-    res.status(400).json({
+    res.json({
       status: "failed",
       code: err.code,
-      message:
-        err.code === 11000
-          ? "two restaurants can not have the same name "
-          : err.message,
+      message: err.message,
     });
   }
+};
+
+exports.getRestaurantsLength = async (req, res) => {
+  const restaurantsLength = await Restaurant.find();
+  res.status(200).json({
+    status: "Success",
+    numberOfRestuarants: restaurantsLength.length,
+    // numberOfPages: restaurants.length / 20,
+  });
 };
 
 exports.getAllRestaurants = async (req, res) => {
@@ -97,6 +103,7 @@ exports.getOneRestaurant = async (req, res) => {
   try {
     const restaurant = await Restaurant.findById(req.params.id).populate([
       "account",
+      "category",
     ]);
 
     res.status(200).json({

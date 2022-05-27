@@ -7,9 +7,13 @@ const restaurantSchema = new mongoose.Schema({
     type: String,
     required: [true, "a restaurant has imperatuvely a name"],
   },
+  image: {
+    type: String,
+    // required: [true, "must have a picture to bring front"],
+  },
   coverPicture: {
     type: String,
-    required: [true, "must have one cover picture"],
+    // required: [true, "must have one cover picture"],
   },
   description: {
     type: String,
@@ -24,11 +28,11 @@ const restaurantSchema = new mongoose.Schema({
   },
   openTime: {
     type: Date,
-    // required: [true, "mention this"],
+    required: [true, "mention this"],
   },
   closeTime: {
     type: Date,
-    // required: [true, "mention this"],
+    required: [true, "mention this"],
   },
   adress: {
     type: [
@@ -54,21 +58,7 @@ const restaurantSchema = new mongoose.Schema({
     type: Number,
     defaultValue: 20,
   },
-  // category: {
-  //   type: Array,
-  //   default: ["classic"],
-  //   enum: [
-  //     "cafeteria",
-  //     "steak-house",
-  //     "sandwicherie",
-  //     "classic",
-  //     "vegetarien",
-  //     "diétetiques",
-  //     "fast-food",
-  //     "snack",
-  //     "hamburgerie",
-  //   ],
-  // },
+
   isRecommanded: { type: Boolean, default: false },
   map: { type: String },
   pictures: { type: String },

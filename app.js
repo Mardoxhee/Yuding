@@ -43,6 +43,10 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *        '200':
  *          description : successfull !
  */
+const corsOptions = {
+  origin: "*",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 app.get("/", function (req, res) {
   res.send(
     "Welcome on Yuding platform APi ========== copy this link to read the documenation of this api ======================== https://docs.google.com/document/d/1qo06FtuJOP4jzVf2ewAspeEGRnIJEly3b4ZzpQ7tGxg/edit?usp=sharing"
@@ -55,10 +59,5 @@ app.use("/reservations", cors(corsOptions), ReservationRouter);
 app.use("/meals", cors(corsOptions), MealRouter);
 app.use("/temoignages", cors(corsOptions), TemoignageRouter);
 app.use(cors());
-
-var corsOptions = {
-  origin: "http://localhost:8081/",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
 
 module.exports = app;
