@@ -41,7 +41,7 @@ exports.createReservation = async (req, res) => {
     res.status(400).json({
       status: "failed",
       code: err.code,
-      message: err.code,
+      message: err.message,
     });
   }
 };

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { protect, restrictTo } = require("./../controllers/authController");
 
-
 const {
   createRestaurant,
   getAllRestaurants,
@@ -11,18 +10,20 @@ const {
   deleteRestaurant,
   getRestaurantByAccount,
   getRestaurantByCategory,
+  getRestaurantsLength,
 } = require("./../controllers/restaurantController");
 
 // ordinary routes
 router.route("/").get(getAllRestaurants);
 router.route("/").post(protect, createRestaurant);
+router.route("/length").get(getRestaurantsLength);
 router.route("/by-account").get(protect, getRestaurantByAccount);
 router.route("/by-category/").get(getRestaurantByCategory);
 
 router
   .route("/:id")
   .get(getOneRestaurant)
-  .patch(protect, restrictTo, updateRestaurant)
-  .delete(protect, restrictTo, deleteRestaurant);
+  .patch(protect, updateRestaurant)
+  .delete(protect, deleteRestaurant);
 
 module.exports = router;
