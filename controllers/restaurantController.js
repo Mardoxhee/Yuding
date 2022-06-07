@@ -29,12 +29,19 @@ exports.createRestaurant = async (req, res) => {
 };
 
 exports.getRestaurantsLength = async (req, res) => {
-  const restaurantsLength = await Restaurant.find();
-  res.status(200).json({
-    status: "Success",
-    numberOfRestuarants: restaurantsLength.length,
-    // numberOfPages: restaurants.length / 20,
-  });
+  try {
+    const restaurantsLength = await Restaurant.find();
+    res.status(200).json({
+      status: "Success",
+      numberOfRestuarants: restaurantsLength.length,
+      // numberOfPages: restaurants.length / 20,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "failed",
+      message: err.message,
+    });
+  }
 };
 
 exports.getAllRestaurants = async (req, res) => {
