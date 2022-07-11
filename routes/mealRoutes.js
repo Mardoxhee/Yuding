@@ -12,11 +12,8 @@ const {
 } = require("./../controllers/mealController");
 // ordinary routes
 
-router
-  .route("/")
-  .get(getAllMeals)
-  .get(protect, getMealByAccount)
-  .post(protect, createMeal);
+router.route("/").get(getAllMeals).post(protect, createMeal);
+router.route("/by-account").get(protect, getMealByAccount);
 router
   .route("/:id")
   .get(getOneMeal)
