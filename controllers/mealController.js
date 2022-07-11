@@ -3,7 +3,9 @@ const APIfeatures = require("./../utils/apiFeatures");
 
 exports.createMeal = async (req, res) => {
   try {
-    const newMeal = await Meal.create(req.body);
+    const bodies = req.body;
+    bodies.account = req.decoded.id;
+    const newMeal = await Meal.create(bodies);
     res.status(201).json({
       status: "meal created successfully",
       newMeal,
@@ -12,7 +14,7 @@ exports.createMeal = async (req, res) => {
     res.status(400).json({
       status: "failed",
       code: err.code,
-      message: err.code,
+      message: err.message,
     });
   }
 };
@@ -30,7 +32,7 @@ exports.getAllMeals = async (req, res) => {
     // Send response
     res.status(200).json({
       status: "Success",
-      numberOfMeals: Meal.length,
+      numberOfMeals: meals.length,
       meals,
     });
   } catch (err) {
@@ -48,8 +50,22 @@ exports.getMealByAccount = async (req, res) => {
     }).populate("account");
     res.status(200).json({
       status: "success",
-
       meal,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "failed",
+      message: err.message,
+    });
+  }
+};
+
+exports.getmealByRestaurant = async (req, res) => {
+  try {
+    const meals = await Meal.find();
+    res.status(200).json({
+      status: "success",
+      meals,
     });
   } catch (err) {
     res.status(400).json({

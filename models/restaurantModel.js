@@ -65,6 +65,7 @@ const restaurantSchema = new mongoose.Schema({
   account: { type: mongoose.Schema.Types.ObjectId, ref: "Account" },
   reservation: { type: mongoose.Schema.Types.ObjectId, ref: "Reservation" },
   category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+  meal: { type: mongoose.Schema.Types.ObjectId, ref: "Meal" },
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
