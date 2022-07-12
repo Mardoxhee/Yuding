@@ -126,7 +126,7 @@ exports.restrictTo = (roles) => {
           message: "you do not have permission to do this action",
         });
       }
-      if (data.role === "user") {
+      if (account.role === "user") {
         await Restaurant.findById(req.params.id).then((restaurant) => {
           if (restaurant.account !== req.decoded.id) {
             return res.status(403).json({
