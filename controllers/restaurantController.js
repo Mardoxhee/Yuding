@@ -73,7 +73,7 @@ exports.getRestaurantByAccount = async (req, res) => {
   try {
     const restaurant = await Restaurant.find({
       account: req.decoded.id,
-    }).populate("account");
+    }).populate("account", "reservations");
 
     res.status(200).json({
       status: "success",
@@ -111,7 +111,6 @@ exports.getOneRestaurant = async (req, res) => {
     const restaurant = await Restaurant.findById(req.params.id).populate([
       "account",
       "category",
-      "reservations",
     ]);
 
     res.status(200).json({

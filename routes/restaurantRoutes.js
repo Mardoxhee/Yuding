@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { protect, restrictTo } = require("./../controllers/authController");
+const { protect } = require("./../controllers/authController");
 
 const {
   createRestaurant,

@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const Account = require("./../models/accountModel");
 const jwt = require("jsonwebtoken");
 const sendMail = require("./../utils/email");
+const Restaurant = require("./../models/restaurantModel");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -117,29 +118,29 @@ exports.protect = async (req, res, next) => {
   }
 };
 
-exports.restrictTo = (roles) => {
-  return async (req, res, next) => {
-    await Account.findById(req.decoded.id).then(async (account) => {
-      if (!roles.includes(account.role)) {
-        return res.status(403).json({
-          status: "fail",
-          message: "you do not have permission to do this action",
-        });
-      }
-      if (account.role === "user") {
-        await Restaurant.findById(req.params.id).then((restaurant) => {
-          if (restaurant.account !== req.decoded.id) {
-            return res.status(403).json({
-              status: "fail",
-              message: "unauthorized",
-            });
-          }
-        });
-      }
-    });
-    next();
-  };
-};
+// exports.restrictTo = (roles) => {
+//   return async (req, res, next) => {
+//     await Account.findById(req.decoded.id).then(async (account) => {
+//       if (!roles.includes(account.role)) {
+//         return res.status(403).json({
+//           status: "fail",
+//           message: "you do not have permission to do this action",
+//         });
+//       }
+//       if (data.role === "user") {
+//         await Restaurant.findById(req.params.id).then((restaurant) => {
+//           if (restaurant.account !== req.decoded.id) {
+//             return res.status(403).json({
+//               status: "fail",
+//               message: "unauthorized",
+//             });
+//           }
+//         });
+//       }
+//     });
+//     next();
+//   };
+// };
 
 exports.forgotPassword = async (req, res, next) => {
   // 1) get Account based on posted email
