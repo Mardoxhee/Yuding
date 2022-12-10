@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { protect, restrictTo } = require("./../controllers/authController");
+const { protect } = require("./../controllers/authController");
 
 const {
   createReservation,
@@ -13,8 +13,8 @@ const {
 // ordinary routes
 router.route("/all/").get(getAllReservations);
 router
-  .route("/")
-  .get(protect, restrictTo("user"), getReservationByAccount)
+  .route("/by-account")
+  .get(protect, getReservationByAccount)
   .post(createReservation);
 router
   .route("/:id")

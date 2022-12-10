@@ -74,13 +74,21 @@ exports.getAllReservations = async (req, res) => {
 
 exports.getReservationByAccount = async (req, res) => {
   try {
-    const reservation = await Reservation.find({
-      account: req.decoded.id,
-    }).populate("account");
+    const features = new APIfeatures(
+      Reservation.find({
+        account: req.decoded.id,
+      }),
+      req.query
+    )
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const reservations = await features.query;
     res.status(200).json({
       status: "success",
       data: {
-        reservation,
+        reservations,
       },
     });
   } catch (err) {
