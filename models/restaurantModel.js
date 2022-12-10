@@ -63,7 +63,7 @@ const restaurantSchema = new mongoose.Schema({
   map: { type: String },
   pictures: { type: String },
   account: { type: mongoose.Schema.Types.ObjectId, ref: "Account" },
-  reservation: { type: mongoose.Schema.Types.ObjectId, ref: "Reservation" },
+  reservations: { type: mongoose.Schema.Types.ObjectId, ref: "Reservation" },
   category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
   meal: { type: mongoose.Schema.Types.ObjectId, ref: "Meal" },
 });
