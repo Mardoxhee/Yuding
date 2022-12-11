@@ -8,7 +8,7 @@ exports.createReservation = async (req, res) => {
   try {
     let currentDate = moment();
     console.log(currentDate.toString());
-    reservationDate = req.body.date;
+    const reservationDate = req.body.date;
     if (moment(reservationDate).isBefore(currentDate)) {
       res.status(400).json({
         status: "bad date",
